@@ -1,28 +1,44 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int main()
+void inputArr( int a[][2] , int n)
 {
-    int n ;
-    cin>> n ;
-    cin.ignore();
-    while(n--)
+    for( int i =  0 ; i < n ; i++)
     {
-        string s ;
-        getline(cin,s);
-        int i = 0 ;
-        while(s[0]==' ') s.erase(0,1);
-        while( i < s.size())
+        for(int j = 0 ; j < 2 ; j++)
         {
-            if( (s[i]==' ') && (s[i+1]==' '))
-                s.erase(i,1);
-            else i++;
+            cin >> a[i][j];
         }
-        cout<<s<<endl;
     }
 }
 
+bool check( int x1 , int x2 , int y1 , int y2)
+{
+    if((x1 - y1) == (x2 - y2) || (x1 - x2) == (y2 - y1) ||(x1 == x2) ||(y1 == y2))
+        return true ;
+    return false ;
+}
 
-
-
-
+bool checkArr( int a[][2], int n )
+{
+    for( int i = 0 ; i < n - 1 ; i++)
+    {
+        for(int j = i+1 ; j < n ; j++)
+        {
+            if(check(a[i][0] , a[j][0] , a[i][1] , a[j][1]))
+                return true ;
+        }
+    }
+    return false ;
+}
+int main()
+{
+    int n ;
+    cin >> n ;
+    int a[n][2];
+    inputArr(a,n);
+    if(checkArr(a,n) == true )
+        cout<<"yes";
+    else
+        cout<<"no";
+}
